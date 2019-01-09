@@ -11,9 +11,13 @@ namespace cgame {
 		~GameEngine();
 		void run();
 		void add(Sprite*); 
-		void remove();
+		void remove(Sprite* s);
+		void setFramerate(int f);
+		
 	private: 
 		std::vector<Sprite*> sprites;
+		std::vector<Sprite*> removed; 
+		int framerate = 60;
 	};
 }
 #endif

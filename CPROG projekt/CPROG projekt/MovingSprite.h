@@ -9,16 +9,18 @@ namespace cgame {
 	{
 
 	public:
-		static MovingSprite* getInstance(int x, int y, int w, int h);
-		void draw() const;
-		void makeTexture();
+		static MovingSprite* getInstance(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr);
+		void tick(const std::vector<Sprite*> s);
+
 		~MovingSprite();
 	protected: 
-		MovingSprite(int x, int y, int w, int h);
-		SDL_Texture* getTexture() const;
+		MovingSprite(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr);
 	private: 
-		SDL_Texture* texture = nullptr;
+		
+		int xrel, yrel; 
 
+
+		
 	};
 
 }

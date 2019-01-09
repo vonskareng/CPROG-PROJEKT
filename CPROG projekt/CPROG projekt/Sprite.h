@@ -1,6 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 #include <SDL.h>
+#include <vector> 
 
 namespace cgame {
 	class Sprite
@@ -12,15 +13,35 @@ namespace cgame {
 		virtual void mouseUp(const SDL_Event& event) {}
 		virtual void keyDown(const SDL_Event& event) {}
 		virtual void keyUp(const SDL_Event& event) {}
-		virtual void draw() const = 0;
+		virtual void arrowKeyDown(){}
+		virtual void arrowKeyUp(){}
+		virtual void arrowKeyLeft(){}
+		virtual void arrowKeyRight(){}
+		virtual void mouseMotion(const SDL_Event& event){}
+		void draw() const;
+		virtual void tick(const std::vector<Sprite*> s){}
+		bool checkCollision(Sprite * const &other);
+		virtual void onCollision(const std::vector<Sprite*> sprites) {}
 		SDL_Rect getRect() const;
 		Sprite(const Sprite&) = delete; 
 		const Sprite& operator = (const Sprite&) = delete; 
+		int getTickCounter() const { return tickCounter; }
+		int getTickRate() const { return tickRate; }
+		void increaseTickCounter() { tickCounter++; }
+		void resetTickCounter() { tickCounter = 0; }
 	protected: 
-		Sprite(int x, int y, int w, int h); 
+		Sprite(int x, int y, int w, int h, const char* txt, int tr); 
 		void setWH(int w, int h);
+		void setY(int y);
+		void setX(int x);
+		void setTexture(const char* txt);
 	private: 
+		SDL_Texture* texture = nullptr;
 		SDL_Rect rect;
+		int tickRate; 
+		int tickCounter = 0;
+		
+		
 	};
 }
 #endif
