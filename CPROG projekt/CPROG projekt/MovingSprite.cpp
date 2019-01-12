@@ -18,7 +18,7 @@ namespace cgame {
 		return new MovingSprite(x, y, w, h, txt, xrel, yrel, tr);
 	}
 
-	void MovingSprite::tick(const std::vector<Sprite*> s) {
+	void MovingSprite::tick(const vector<shared_ptr<Sprite>> s) {
 		setX(getRect().x + xrel);
 		setY(getRect().y + yrel);
 

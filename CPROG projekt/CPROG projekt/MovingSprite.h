@@ -10,7 +10,7 @@ namespace cgame {
 
 	public:
 		static MovingSprite* getInstance(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr);
-		void tick(const std::vector<Sprite*> s);
+		void tick(const std::vector<std::shared_ptr<Sprite>> s);
 
 		~MovingSprite();
 	protected: 

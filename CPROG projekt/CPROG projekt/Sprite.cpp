@@ -3,6 +3,7 @@
 #include "System.h"
 #include <SDL_image.h>
 
+using namespace std;
 namespace cgame {
 
 
@@ -17,6 +18,8 @@ namespace cgame {
 	SDL_Rect Sprite::getRect() const {
 		return rect;
 	}
+
+	//GameEngine& Sprite::getGameEngine() const { return ge; }
 
 	void Sprite::setTexture(const char* txt) {
 		SDL_Surface* bgSurf = IMG_Load(txt);
@@ -42,10 +45,11 @@ namespace cgame {
 		SDL_RenderCopy(sys.getRen(), texture, NULL, &getRect());
 	}
 
-	bool Sprite::checkCollision(Sprite * const &other) {
+	bool Sprite::checkCollision(shared_ptr<Sprite> const &other) {
 			
 			SDL_Rect rect2 = (*other).getRect();
-			if (this == other) {
+
+			if (other.get() == this) {
 				return false;
 			}
 			return SDL_HasIntersection(&rect, &rect2);

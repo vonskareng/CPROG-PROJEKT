@@ -2,6 +2,8 @@
 #define SPRITE_H
 #include <SDL.h>
 #include <vector> 
+#include <memory>
+
 
 namespace cgame {
 	class Sprite
@@ -19,9 +21,9 @@ namespace cgame {
 		virtual void arrowKeyRight(){}
 		virtual void mouseMotion(const SDL_Event& event){}
 		void draw() const;
-		virtual void tick(const std::vector<Sprite*> s){}
-		bool checkCollision(Sprite * const &other);
-		virtual void onCollision(const std::vector<Sprite*> sprites) {}
+		virtual void tick(const std::vector<std::shared_ptr<Sprite>> s){}
+		bool checkCollision(std::shared_ptr<Sprite> const &other);
+		virtual void onCollision(const std::vector<std::shared_ptr<Sprite>> sprites) {}
 		SDL_Rect getRect() const;
 		Sprite(const Sprite&) = delete; 
 		const Sprite& operator = (const Sprite&) = delete; 
@@ -29,6 +31,7 @@ namespace cgame {
 		int getTickRate() const { return tickRate; }
 		void increaseTickCounter() { tickCounter++; }
 		void resetTickCounter() { tickCounter = 0; }
+		
 	protected: 
 		Sprite(int x, int y, int w, int h, const char* txt, int tr); 
 		void setWH(int w, int h);
@@ -40,6 +43,8 @@ namespace cgame {
 		SDL_Rect rect;
 		int tickRate; 
 		int tickCounter = 0;
+		
+		
 		
 		
 	};

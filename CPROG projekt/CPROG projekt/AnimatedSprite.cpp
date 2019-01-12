@@ -1,6 +1,6 @@
 #include "AnimatedSprite.h"
 
-
+using namespace std;
 namespace cgame {
 	AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const char* txt, int tr) : Sprite(x,y,w,h,txt, tr)
 	{
@@ -11,7 +11,7 @@ namespace cgame {
 	{
 	}
 
-	void AnimatedSprite::tick(const std::vector<Sprite*> s) {
+	void AnimatedSprite::tick(const vector<shared_ptr<Sprite>> s) {
 		
 		if (getTickRate() == 0 || getTickRate() == getTickCounter()) {
 
@@ -36,7 +36,7 @@ namespace cgame {
 		
 	}
 
-	AnimatedSprite* AnimatedSprite::getInstance(int x, int y, int w, int h, const char* txt, int tr) {
-		return new AnimatedSprite(x, y, w, h, txt, tr);
+	shared_ptr<AnimatedSprite> AnimatedSprite::getInstance(int x, int y, int w, int h, const char* txt, int tr) {
+		return shared_ptr<AnimatedSprite>(new AnimatedSprite(x, y, w, h, txt, tr));
 	}
 }

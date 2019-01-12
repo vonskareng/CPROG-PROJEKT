@@ -9,9 +9,9 @@ namespace cgame {
 	public:
 		
 		~AnimatedSprite();
-		void tick(const std::vector<Sprite*> s);
+		void tick(const std::vector<std::shared_ptr<Sprite>> s);
 		void addSpritePicture(const char* txt);
-		static AnimatedSprite* getInstance(int x, int y, int w, int h, const char* txt, int tr);
+		static std::shared_ptr<AnimatedSprite> getInstance(int x, int y, int w, int h, const char* txt, int tr);
 	protected:  
 		AnimatedSprite(int x, int y, int w, int h, const char* txt, int tr);
 	private: 

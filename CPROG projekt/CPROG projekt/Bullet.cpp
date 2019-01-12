@@ -1,8 +1,9 @@
 #include "Bullet.h"
 
 
-using namespace cgame;
 
+using namespace cgame;
+using namespace std;
 	Bullet::Bullet(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr) : MovingSprite(x,y,w,h,txt,xrel,yrel, tr)
 	{
 	}
@@ -12,7 +13,7 @@ using namespace cgame;
 	{
 	}
 
-	Bullet* Bullet::getInstance(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr) {
-		return new Bullet(x, y, w, h, txt, xrel, yrel, tr);
+	shared_ptr<Bullet> Bullet::getInstance(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr) {
+		return shared_ptr<Bullet>(new Bullet(x, y, w, h, txt, xrel, yrel, tr));
 	}
 

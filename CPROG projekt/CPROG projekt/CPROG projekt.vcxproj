@@ -138,6 +138,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="gameEnum.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MovableSprite.h" />
     <ClInclude Include="MovingSprite.h" />
     <ClInclude Include="Player.h" />
