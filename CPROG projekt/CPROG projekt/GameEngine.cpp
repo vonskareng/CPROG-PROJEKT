@@ -26,6 +26,8 @@ namespace cgame {
 		commands[value] = *fpek;
 	}
 
+
+
 	void GameEngine::setBackground(const char* txt) {
 		backgroundTexture = IMG_LoadTexture(sys.getRen(), txt);
 	}
