@@ -4,14 +4,16 @@
 #include "GameEngine.h"
 
 
-	class Bullet : public cgame::MovingSprite
+	class Bullet : public cgame::MovingSprite, public std::enable_shared_from_this<Bullet>
 	{
 	public:
-		static std::shared_ptr<Bullet> getInstance(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr);
+		void extras();
+		static std::shared_ptr<Bullet> getInstance(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine g);
+		void onCollision(const std::vector<std::shared_ptr<Sprite>> sprites);
 		~Bullet();
 	private: 
-		Bullet(int x, int y, int w, int h, const char* txt, int xrel, int yrel, int tr);
-		
+		Bullet(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine g);
+		cgame::GameEngine ge;
 	};
 
 

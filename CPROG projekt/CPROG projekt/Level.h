@@ -8,9 +8,11 @@ namespace cgame {
 	struct Level {
 		std::vector<std::shared_ptr<Sprite>> levelSprites;
 		const char* background;
+		int spawnRate;
 
 		~Level() {
-			delete [] background; 
+			if(background)
+				delete [] background; 
 		}
 	};
 

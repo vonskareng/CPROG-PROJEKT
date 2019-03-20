@@ -1,7 +1,7 @@
 #include "GameEngine.h"
 #include <iostream>
 #include "System.h"
-#include <SDL_image.h>
+#include <stdexcept>
 
 using namespace std; 
 
@@ -10,8 +10,8 @@ namespace cgame {
 	{
 	}
 
-	void GameEngine::add(shared_ptr<Sprite> s) {
-		sprites.push_back(s);
+	void GameEngine::addSprite(shared_ptr<Sprite> s) {
+		added.push_back(s);
 	}
 
 	void GameEngine::remove(shared_ptr<Sprite> s) {
@@ -32,14 +32,22 @@ namespace cgame {
 		backgroundTexture = IMG_LoadTexture(sys.getRen(), txt);
 	}
 
+	void GameEngine::loadLevel() {
+		if (!levels[currentLevel]->levelSprites.empty()) {
+			for (shared_ptr<Sprite> s : levels[currentLevel]->levelSprites) {
+				sprites.push_back(s);
+			}
+			if(levels[currentLevel]->background)
+				setBackground(levels[currentLevel]->background);
+		}
+	}
+
 	void GameEngine::increaseLevel() {
 		currentLevel++; 
 		sprites.clear();
-		SDL_DestroyTexture(backgroundTexture);
-		setBackground(levels[currentLevel]->background);
-		for (shared_ptr<Sprite> s : levels[currentLevel]->levelSprites) {
-			sprites.push_back(s);
-		}
+		if(backgroundTexture)
+			SDL_DestroyTexture(backgroundTexture);
+		loadLevel();
 		newLevel = false;
 	}
 
@@ -51,19 +59,28 @@ namespace cgame {
 		levels.push_back(lvl);
 	}
 
+		
+	
 	void GameEngine::run() {
-		SDL_SetRenderDrawColor(sys.getRen(), 255, 255, 255, 255);
-		bool quit = false;
 		const int tickInterval = 1000 / framerate;
-		for (shared_ptr<Sprite> s : levels[currentLevel]->levelSprites) {
-			sprites.push_back(s);
+		//Uint32 nextTick = SDL_GetTicks() + tickInterval;
+		//int delay;
+		
+		if (levels.empty()) {
+			throw runtime_error("Måste addera levels");
 		}
-		setBackground(levels[0]->background);
-
+		
+		loadLevel();
+		
+		
 		while (!quit) {
 			Uint32 nextTick = SDL_GetTicks() + tickInterval;
 			SDL_Event event; 
+
 			while (SDL_PollEvent(&event)) {
+				for (shared_ptr<Sprite> s : sprites) {
+					s->perform(event);
+				}
 				switch (event.type) {
 				case SDL_QUIT: quit = true; break;
 				case SDL_MOUSEBUTTONDOWN:
@@ -82,7 +99,9 @@ namespace cgame {
 					}
 					break;
 				case SDL_KEYDOWN:
-
+					if (memberFuncs.count(event.key.keysym.sym) != 0) {
+						memberFuncs[event.key.keysym.sym]->doFunc();
+					}
 					if (commands.count(event.key.keysym.sym) != 0) {
 						commands[event.key.keysym.sym]();
 					}
@@ -111,9 +130,14 @@ namespace cgame {
 					}
 				}
 
-
-
 			}
+			
+			for (shared_ptr<Sprite> s : added) {
+				sprites.push_back(s);
+			}
+			added.clear();
+
+
 			for (shared_ptr<Sprite> s : removed) {
 				for (std::vector<shared_ptr<Sprite>>::iterator i = sprites.begin(); i != sprites.end(); ) {
 					if (*i == s) {
@@ -128,9 +152,12 @@ namespace cgame {
 			}
 			removed.clear();
 
+			
+			
 			SDL_RenderClear(sys.getRen());
 			SDL_RenderCopy(sys.getRen(), backgroundTexture, NULL, NULL);
 			for (shared_ptr<Sprite> s : sprites) {
+				s->extras();
 				s->tick(sprites);
 				s->onCollision(sprites);
 				s->draw();
@@ -149,7 +176,9 @@ namespace cgame {
 	}
 	GameEngine::~GameEngine()
 	{
-		SDL_DestroyTexture(backgroundTexture);
+		if(backgroundTexture)
+			SDL_DestroyTexture(backgroundTexture);
+
 
 	}
 }

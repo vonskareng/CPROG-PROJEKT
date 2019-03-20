@@ -7,7 +7,7 @@ using namespace std;
 namespace cgame {
 
 
-	Sprite::Sprite(int x, int y, int w, int h, const char* txt, int tr) : rect{ x,y,w,h }, tickRate(tr)
+	Sprite::Sprite(int x, int y, const char* txt, int tr) : rect{ x,y }, tickRate(tr)
 	{
 		SDL_Surface* bgSurf = IMG_Load(txt);
 		texture = SDL_CreateTextureFromSurface(sys.getRen(), bgSurf);
@@ -19,7 +19,14 @@ namespace cgame {
 		return rect;
 	}
 
-	//GameEngine& Sprite::getGameEngine() const { return ge; }
+	SDL_Texture* Sprite::getTexture() {
+		return texture;
+	}
+
+	void Sprite::freeTexture() {
+		SDL_DestroyTexture(texture);
+		texture = NULL;
+	}
 
 	void Sprite::setTexture(const char* txt) {
 		SDL_Surface* bgSurf = IMG_Load(txt);

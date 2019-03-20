@@ -5,7 +5,7 @@
 using namespace std; 
 
 namespace cgame {
-	MovableSprite::MovableSprite(int x, int y, int w, int h, const char* txt, mouseMovement m, int tr) : Sprite(x,y,w,h,txt, tr), m(m)
+	MovableSprite::MovableSprite(int x, int y, const char* txt, mouseMovement m, int tr) : Sprite(x,y,txt, tr), m(m)
 	{
 	}
 
@@ -17,9 +17,7 @@ namespace cgame {
 		}
 	}
 
-	MovableSprite* MovableSprite::getInstance(int x, int y, int w, int h, const char* txt, mouseMovement m, int tr) {
-		return new MovableSprite(x, y, w, h, txt, m, tr);
-	}
+
 
 	void MovableSprite::mouseUp(const SDL_Event& event) {
 		SDL_Point p = { event.button.x, event.button.y };
@@ -70,9 +68,7 @@ namespace cgame {
 
 	}
 
-	void MovableSprite::tick(const std::vector<Sprite*> s) {
 
-	}
 
 	MovableSprite::~MovableSprite()
 	{

@@ -2,7 +2,7 @@
 
 using namespace std;
 namespace cgame {
-	AnimatedSprite::AnimatedSprite(int x, int y, int w, int h, const char* txt, int tr) : Sprite(x,y,w,h,txt, tr)
+	AnimatedSprite::AnimatedSprite(int x, int y, const char* txt, int tr) : Sprite(x,y,txt, tr)
 	{
 	}
 
@@ -36,7 +36,7 @@ namespace cgame {
 		
 	}
 
-	shared_ptr<AnimatedSprite> AnimatedSprite::getInstance(int x, int y, int w, int h, const char* txt, int tr) {
-		return shared_ptr<AnimatedSprite>(new AnimatedSprite(x, y, w, h, txt, tr));
+	shared_ptr<AnimatedSprite> AnimatedSprite::getInstance(int x, int y, const char* txt, int tr) {
+		return shared_ptr<AnimatedSprite>(new AnimatedSprite(x, y, txt, tr));
 	}
 }
