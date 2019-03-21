@@ -19,6 +19,7 @@ namespace cgame {
 		void arrowKeyUp();
 		void arrowKeyLeft();
 		void arrowKeyRight();
+		void draw();
 
 		~MovableSprite();
 	protected: 

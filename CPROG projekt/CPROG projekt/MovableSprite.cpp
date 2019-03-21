@@ -17,7 +17,9 @@ namespace cgame {
 		}
 	}
 
-
+	void MovableSprite::draw() {
+		SDL_RenderCopy(sys.getRen(), getTexture(), NULL, &getRect());
+	}
 
 	void MovableSprite::mouseUp(const SDL_Event& event) {
 		SDL_Point p = { event.button.x, event.button.y };

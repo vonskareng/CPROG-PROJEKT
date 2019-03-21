@@ -9,8 +9,7 @@ namespace cgame {
 	{
 
 	public:
-		void tick(const std::vector<std::shared_ptr<Sprite>> s);
-
+		void draw();
 		~MovingSprite();
 	protected: 
 		MovingSprite(int x, int y, const char* txt, int xrel, int yrel, int tr);

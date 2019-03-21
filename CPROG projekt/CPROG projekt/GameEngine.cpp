@@ -157,8 +157,7 @@ namespace cgame {
 			SDL_RenderClear(sys.getRen());
 			SDL_RenderCopy(sys.getRen(), backgroundTexture, NULL, NULL);
 			for (shared_ptr<Sprite> s : sprites) {
-				s->extras();
-				s->tick(sprites);
+				s->tick();
 				s->onCollision(sprites);
 				s->draw();
 

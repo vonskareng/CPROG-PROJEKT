@@ -48,9 +48,9 @@ namespace cgame {
 		rect.x = x; 
 	}
 
-	void Sprite::draw() const {
-		SDL_RenderCopy(sys.getRen(), texture, NULL, &getRect());
-	}
+//	void Sprite::draw() const {
+//		SDL_RenderCopy(sys.getRen(), texture, NULL, &getRect());
+//	}
 
 	bool Sprite::checkCollision(shared_ptr<Sprite> const &other) {
 			

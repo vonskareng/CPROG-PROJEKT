@@ -20,13 +20,13 @@ void Enemy::onCollision(const vector<std::shared_ptr<Sprite>> sprites) {
 	}
 }
 
-void Enemy::extras() {
-	
+void Enemy::tick() {
 	if (getRect().x > 800) {
 		setX(0);
 	}
-	
 }
+
+
 
 Enemy::~Enemy()
 {

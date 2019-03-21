@@ -21,11 +21,11 @@ namespace cgame {
 		virtual void arrowKeyRight(){}
 		virtual void mouseMotion(const SDL_Event& event){}
 		virtual void perform(SDL_Event e){}
-		virtual void extras(){}
-		void draw() const;
-		virtual void tick(const std::vector<std::shared_ptr<Sprite>> s){}
-		bool checkCollision(std::shared_ptr<Sprite> const &other);
+		virtual void tick(){}
 		virtual void onCollision(const std::vector<std::shared_ptr<Sprite>> sprites) {}
+		virtual void draw() {}
+
+		bool checkCollision(std::shared_ptr<Sprite> const &other);
 		SDL_Rect getRect() const;
 		int getTickCounter() const { return tickCounter; }
 		int getTickRate() const { return tickRate; }

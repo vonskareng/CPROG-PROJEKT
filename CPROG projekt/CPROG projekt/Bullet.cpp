@@ -17,11 +17,13 @@ using namespace std;
 		}
 	}
 
-	void Bullet::extras() {
+	void Bullet::tick() {
 		if (getRect().x < 0) {
 			ge.remove(shared_ptr<Sprite>(shared_from_this()));
 		}
 	}
+
+
 
 	Bullet::~Bullet()
 	{
