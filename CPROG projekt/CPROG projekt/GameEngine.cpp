@@ -63,8 +63,6 @@ namespace cgame {
 	
 	void GameEngine::run() {
 		const int tickInterval = 1000 / framerate;
-		//Uint32 nextTick = SDL_GetTicks() + tickInterval;
-		//int delay;
 		
 		if (levels.empty()) {
 			throw runtime_error("Måste addera levels");
