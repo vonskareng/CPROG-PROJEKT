@@ -4,7 +4,7 @@
 
 namespace cgame {
 
-	class AnimatedSprite : public Sprite
+	class AnimatedSprite : public Sprite, public std::enable_shared_from_this<AnimatedSprite>
 	{
 	public:
 		

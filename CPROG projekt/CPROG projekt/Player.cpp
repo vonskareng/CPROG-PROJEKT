@@ -21,7 +21,7 @@ using namespace std;
 
 	void Player::perform(SDL_Event e) {
 		
-		if (e.key.keysym.sym == SDLK_SPACE) {
+		if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 			shared_ptr<Bullet> b = Bullet::getInstance(getRect().x, getRect().y, "assets/bullet.png", -1, 0, 0, ge);
 			ge.addSprite(b);
 		}
@@ -31,7 +31,8 @@ using namespace std;
 		Enemy* e;
 		for (shared_ptr<Sprite> s : sprites) {
 			if (checkCollision(s) && (e = dynamic_cast<Enemy*>(s.get()))) {
-				ge.remove(shared_ptr<Sprite>(shared_from_this()));
+				ge.remove(shared_from_this());
+				
 			}
 		}
 		

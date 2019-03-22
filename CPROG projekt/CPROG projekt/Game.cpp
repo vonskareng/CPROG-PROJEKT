@@ -19,6 +19,7 @@ void Game::initialize() {
 	one->levelSprites.push_back(e1);
 	one->levelSprites.push_back(e2);
 	one->levelSprites.push_back(e3);
+	one->background = "assets/2.bmp";
 	e.addLevel(one);
 }
 

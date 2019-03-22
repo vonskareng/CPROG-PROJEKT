@@ -13,7 +13,7 @@ public:
 	~Enemy();
 private:	
 	Enemy(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine& g);
-	cgame::GameEngine ge;
+	cgame::GameEngine& ge;
 };
 
 #endif

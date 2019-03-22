@@ -4,7 +4,7 @@
 
 using namespace cgame;
 using namespace std;
-	Bullet::Bullet(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine g) : MovingSprite(x, y, txt, xrel, yrel, tr), ge(g)
+	Bullet::Bullet(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine& g) : MovingSprite(x, y, txt, xrel, yrel, tr), ge(g)
 		{
 		}
 
@@ -12,7 +12,7 @@ using namespace std;
 		Enemy* e;
 		for (shared_ptr<Sprite> s : sprites) {
 			if (checkCollision(s) && (e = dynamic_cast<Enemy*>(s.get()))) {
-				ge.remove(shared_ptr<Sprite>(shared_from_this()));
+				ge.remove(shared_from_this());
 			}
 		}
 	}
@@ -29,7 +29,7 @@ using namespace std;
 	{
 	}
 
-	shared_ptr<Bullet> Bullet::getInstance(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine g) {
+	shared_ptr<Bullet> Bullet::getInstance(int x, int y, const char* txt, int xrel, int yrel, int tr, cgame::GameEngine& g) {
 		return shared_ptr<Bullet>(new Bullet(x, y, txt, xrel, yrel, tr, g));
 	}
 

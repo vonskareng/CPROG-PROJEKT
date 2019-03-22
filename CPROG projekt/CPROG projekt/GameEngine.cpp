@@ -29,7 +29,10 @@ namespace cgame {
 
 
 	void GameEngine::setBackground(const char* txt) {
-		backgroundTexture = IMG_LoadTexture(sys.getRen(), txt);
+		//backgroundTexture = IMG_LoadTexture(sys.getRen(), txt);
+		SDL_Surface* bgSurf = IMG_Load(txt);
+		backgroundTexture = SDL_CreateTextureFromSurface(sys.getRen(), bgSurf);
+		SDL_FreeSurface(bgSurf);
 	}
 
 	void GameEngine::loadLevel() {
@@ -72,9 +75,10 @@ namespace cgame {
 		
 		
 		while (!quit) {
+			
 			Uint32 nextTick = SDL_GetTicks() + tickInterval;
 			SDL_Event event; 
-
+			
 			while (SDL_PollEvent(&event)) {
 				for (shared_ptr<Sprite> s : sprites) {
 					s->perform(event);
@@ -134,7 +138,10 @@ namespace cgame {
 				sprites.push_back(s);
 			}
 			added.clear();
-
+			for (shared_ptr<Sprite> s : sprites) {
+				s->tick();
+				s->onCollision(sprites);
+			}
 
 			for (shared_ptr<Sprite> s : removed) {
 				for (std::vector<shared_ptr<Sprite>>::iterator i = sprites.begin(); i != sprites.end(); ) {
@@ -151,12 +158,11 @@ namespace cgame {
 			removed.clear();
 
 			
-			
+	
 			SDL_RenderClear(sys.getRen());
 			SDL_RenderCopy(sys.getRen(), backgroundTexture, NULL, NULL);
 			for (shared_ptr<Sprite> s : sprites) {
-				s->tick();
-				s->onCollision(sprites);
+				
 				s->draw();
 
 			}
@@ -165,7 +171,6 @@ namespace cgame {
 			int delay = nextTick - SDL_GetTicks();
 			if (delay > 0)
 				SDL_Delay(delay);
-
 			if (newLevel && currentLevel != levels.size() - 1) {
 				increaseLevel();
 			}
