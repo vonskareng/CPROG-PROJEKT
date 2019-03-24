@@ -29,7 +29,6 @@ namespace cgame {
 
 
 	void GameEngine::setBackground(const char* txt) {
-		//backgroundTexture = IMG_LoadTexture(sys.getRen(), txt);
 		SDL_Surface* bgSurf = IMG_Load(txt);
 		backgroundTexture = SDL_CreateTextureFromSurface(sys.getRen(), bgSurf);
 		SDL_FreeSurface(bgSurf);
@@ -75,12 +74,12 @@ namespace cgame {
 		
 		
 		while (!quit) {
-			
 			Uint32 nextTick = SDL_GetTicks() + tickInterval;
 			SDL_Event event; 
 			
 			while (SDL_PollEvent(&event)) {
 				for (shared_ptr<Sprite> s : sprites) {
+					s->textInput(event);
 					s->perform(event);
 				}
 				switch (event.type) {
@@ -138,6 +137,7 @@ namespace cgame {
 				sprites.push_back(s);
 			}
 			added.clear();
+			
 			for (shared_ptr<Sprite> s : sprites) {
 				s->tick();
 				s->onCollision(sprites);
@@ -161,10 +161,9 @@ namespace cgame {
 	
 			SDL_RenderClear(sys.getRen());
 			SDL_RenderCopy(sys.getRen(), backgroundTexture, NULL, NULL);
+			
 			for (shared_ptr<Sprite> s : sprites) {
-				
 				s->draw();
-
 			}
 			
 			SDL_RenderPresent(sys.getRen());
@@ -174,6 +173,7 @@ namespace cgame {
 			if (newLevel && currentLevel != levels.size() - 1) {
 				increaseLevel();
 			}
+			
 		}
 	}
 	GameEngine::~GameEngine()

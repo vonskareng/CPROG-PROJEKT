@@ -129,9 +129,11 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovableSprite.cpp" />
     <ClCompile Include="MovingSprite.cpp" />
+    <ClCompile Include="MyTextBox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="System.cpp" />
+    <ClCompile Include="TextWindow.cpp" />
     <ClCompile Include="Wrapper_ObjFuncs.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,10 +146,12 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MovableSprite.h" />
     <ClInclude Include="MovingSprite.h" />
+    <ClInclude Include="MyTextBox.h" />
     <ClInclude Include="ObjFuncs.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TextWindow.h" />
     <ClInclude Include="Wrapper_ObjFuncs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

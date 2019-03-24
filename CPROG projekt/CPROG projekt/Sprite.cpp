@@ -48,9 +48,7 @@ namespace cgame {
 		rect.x = x; 
 	}
 
-//	void Sprite::draw() const {
-//		SDL_RenderCopy(sys.getRen(), texture, NULL, &getRect());
-//	}
+
 
 	bool Sprite::checkCollision(shared_ptr<Sprite> const &other) {
 			
@@ -59,7 +57,8 @@ namespace cgame {
 			if (other.get() == this) {
 				return false;
 			}
-			return SDL_HasIntersection(&rect, &rect2);
+			if (SDL_HasIntersection(&rect, &rect2))
+				return true;
 	}
 	Sprite::~Sprite()
 	{

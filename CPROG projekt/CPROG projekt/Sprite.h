@@ -9,7 +9,6 @@ namespace cgame {
 	class Sprite
 	{
 	public:
-		
 		~Sprite();
 		virtual void mouseDown(const SDL_Event& event) {}
 		virtual void mouseUp(const SDL_Event& event) {}
@@ -20,7 +19,8 @@ namespace cgame {
 		virtual void arrowKeyLeft(){}
 		virtual void arrowKeyRight(){}
 		virtual void mouseMotion(const SDL_Event& event){}
-		virtual void perform(SDL_Event e){}
+		virtual void perform(SDL_Event& e){}
+		virtual void textInput(SDL_Event& e) {}
 		virtual void tick(){}
 		virtual void onCollision(const std::vector<std::shared_ptr<Sprite>> sprites) {}
 		virtual void draw() {}
@@ -47,10 +47,7 @@ namespace cgame {
 		SDL_Rect rect;
 		int tickRate; 
 		int tickCounter = 0;
-		
-		
-		
-		
+	
 	};
 }
 #endif

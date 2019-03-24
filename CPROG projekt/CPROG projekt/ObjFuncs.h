@@ -15,6 +15,7 @@ namespace cgame {
 		}
 		~ObjFuncs() {
 			delete object;
+			
 		}
 	protected:
 		ObjFuncs(OBJ* o, void(OBJ::*f)()) : object(o), mpek(f) {}

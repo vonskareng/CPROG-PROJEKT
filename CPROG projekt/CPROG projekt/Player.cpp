@@ -19,7 +19,7 @@ using namespace std;
 		return shared_ptr<Player>(new Player(x, y, txt, m, tr,g));
 	}
 
-	void Player::perform(SDL_Event e) {
+	void Player::perform(SDL_Event& e) {
 		
 		if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_SPACE) {
 			shared_ptr<Bullet> b = Bullet::getInstance(getRect().x, getRect().y, "assets/bullet.png", -1, 0, 0, ge);
