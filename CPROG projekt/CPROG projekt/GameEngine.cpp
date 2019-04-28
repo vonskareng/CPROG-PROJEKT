@@ -57,6 +57,11 @@ namespace cgame {
 		newLevel = true;
 	}
 
+	int GameEngine::getRemainingSprites()
+	{
+		return sprites.size();
+	}
+
 	void GameEngine::addLevel(Level* lvl) {
 		levels.push_back(lvl);
 	}

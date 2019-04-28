@@ -16,6 +16,7 @@ void Enemy::onCollision(const vector<std::shared_ptr<Sprite>> sprites) {
 	for (shared_ptr<Sprite> s : sprites) {
 		if (checkCollision(s) && (b = dynamic_cast<Bullet*>(s.get()))) {
 			ge.remove(shared_from_this());
+
 			
 		}
 	}

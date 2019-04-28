@@ -29,6 +29,8 @@ namespace cgame {
 		void setBackground(const char* txt);
 		void addLevel(Level* lvl);
 		void levelUp();
+		int getRemainingSprites();
+
 	private: 
 		void increaseLevel();
 		void loadLevel();

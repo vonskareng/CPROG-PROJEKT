@@ -3,10 +3,11 @@
 #include <SDL.h>
 #include <vector> 
 #include <memory>
+#include "SpriteVector.h"
 
 
 namespace cgame {
-	class Sprite
+	class Sprite 
 	{
 	public:
 		~Sprite();
@@ -43,6 +44,7 @@ namespace cgame {
 	private: 
 		Sprite(const Sprite&) = delete;
 		const Sprite& operator = (const Sprite&) = delete;
+		SDL_Surface* surface = nullptr;
 		SDL_Texture* texture = nullptr;
 		SDL_Rect rect;
 		int tickRate; 

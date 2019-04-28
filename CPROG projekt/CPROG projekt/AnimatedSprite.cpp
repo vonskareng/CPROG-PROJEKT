@@ -1,9 +1,11 @@
 #include "AnimatedSprite.h"
+#include <iostream>
 
 using namespace std;
 namespace cgame {
-	AnimatedSprite::AnimatedSprite(int x, int y, const char* txt, int tr) : Sprite(x,y,txt, tr)
+	AnimatedSprite::AnimatedSprite(int x, int y, const char* txt, int tr) : Sprite(x,y,txt, tr), tickRate(tr)
 	{
+		spritePictures.push_back(txt);
 	}
 
 
@@ -11,32 +13,35 @@ namespace cgame {
 	{
 	}
 
-	void AnimatedSprite::tick(const vector<shared_ptr<Sprite>> s) {
-		
-		if (getTickRate() == 0 || getTickRate() == getTickCounter()) {
 
-			resetTickCounter();
-			setTexture(spritePictures[counter]);
-
-			if (counter == spritePictures.size() - 1) {
-				counter = 0;
-			}
-			else {
-				counter++;
-			}
-		}
-
-		if (getTickRate() != 0) {
-			increaseTickCounter();
-		}
-	}
 
 	void AnimatedSprite::addSpritePicture(const char* sp) {
 		spritePictures.push_back(sp);
 		
 	}
 
-	shared_ptr<AnimatedSprite> AnimatedSprite::getInstance(int x, int y, const char* txt, int tr) {
-		return shared_ptr<AnimatedSprite>(new AnimatedSprite(x, y, txt, tr));
+	void AnimatedSprite::draw()
+	{
+		if (counter == tickRate) {
+
+			setTexture(spritePictures[currentSprite]);
+			counter = 0;
+			
+			if (currentSprite < spritePictures.size() - 1) {
+				currentSprite++;
+			}else {
+				currentSprite = 0;
+			}
+
+
+		}
+		else if (counter < tickRate) {
+
+			counter++;
+		}
+
+		SDL_RenderCopy(sys.getRen(), getTexture(), NULL, &getRect());
 	}
+
+
 }

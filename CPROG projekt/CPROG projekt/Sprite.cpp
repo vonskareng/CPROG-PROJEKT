@@ -2,6 +2,8 @@
 #include <SDL.h>
 #include "System.h"
 #include <SDL_image.h>
+#include <algorithm>
+#include <iostream>
 
 using namespace std;
 namespace cgame {
@@ -9,10 +11,12 @@ namespace cgame {
 
 	Sprite::Sprite(int x, int y, const char* txt, int tr) : rect{ x,y }, tickRate(tr)
 	{
-		SDL_Surface* bgSurf = IMG_Load(txt);
-		texture = SDL_CreateTextureFromSurface(sys.getRen(), bgSurf);
-		SDL_FreeSurface(bgSurf);
-		setWH(bgSurf->w, bgSurf->h);
+		
+		surface = IMG_Load(txt);
+		texture = SDL_CreateTextureFromSurface(sys.getRen(), surface);
+		setWH(surface->w, surface->h);
+
+
 	}
 
 	SDL_Rect Sprite::getRect() const {
@@ -28,11 +32,13 @@ namespace cgame {
 		texture = NULL;
 	}
 
+
+
 	void Sprite::setTexture(const char* txt) {
-		SDL_Surface* bgSurf = IMG_Load(txt);
-		texture = SDL_CreateTextureFromSurface(sys.getRen(), bgSurf);
-		SDL_FreeSurface(bgSurf);
-		setWH(bgSurf->w, bgSurf->h);
+		SDL_FreeSurface(surface);
+		surface = IMG_Load(txt);
+		texture = SDL_CreateTextureFromSurface(sys.getRen(), surface);
+		setWH(surface->w, surface->h);
 	}
 
 	void Sprite::setWH(int w, int h) {
@@ -49,19 +55,23 @@ namespace cgame {
 	}
 
 
-
+	
 	bool Sprite::checkCollision(shared_ptr<Sprite> const &other) {
 			
+			Sprite* o = other.get();
 			SDL_Rect rect2 = (*other).getRect();
+			
 
-			if (other.get() == this) {
+			if (o != this && SDL_HasIntersection(&rect, &rect2)) {
+				return true;
+			}
+			else {
 				return false;
 			}
-			if (SDL_HasIntersection(&rect, &rect2))
-				return true;
 	}
 	Sprite::~Sprite()
 	{
+		SDL_FreeSurface(surface);
 		SDL_DestroyTexture(texture);
 	}
 

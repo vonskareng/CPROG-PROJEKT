@@ -54,7 +54,10 @@
     <ClCompile Include="TextWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyTextBox.cpp">
+    <ClCompile Include="AnimatedEnemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTextBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,7 +107,13 @@
     <ClInclude Include="TextWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MyTextBox.h">
+    <ClInclude Include="SpriteVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTextBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
